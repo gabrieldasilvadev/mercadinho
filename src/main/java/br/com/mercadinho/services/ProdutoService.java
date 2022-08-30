@@ -85,10 +85,16 @@ public class ProdutoService {
 	 * @param produto que será atualizado;
 	 * @return Retorna o produto após tualizar a lista;
 	 */
-	public ProdutoDTO atualizar( ProdutoDTO produtoDto) {
+	public ProdutoDTO atualizar(Integer id, ProdutoDTO produtoDto) {
 		
+		produtoDto.setId(id);
 		
+		ModelMapper mapper = new ModelMapper();
 		
-		return produtoRepository.saveAndFlush(produtoDto);
+		Produto produto = mapper.map(produtoDto, Produto.class);
+		
+		produtoRepository.save(produto);
+		
+		return produtoDto;
 	}
 }
